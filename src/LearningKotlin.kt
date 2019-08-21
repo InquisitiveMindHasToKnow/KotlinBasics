@@ -125,4 +125,47 @@ fun main(){
     //*************Arrays**************
 
     println("\t\t\t\t Arrays \n")
+
+    val sentenceForCheckingIndexes = "Ohms The Resistance"
+
+    var myArray = arrayOf(1, 1.23, "Ohms") //Arrays can store multiple values of multiple different data types
+
+    println(myArray[2]) // printing what's in the 2nd index
+
+    myArray[1] = 3.14 // changes the value of the first item in the array to 3.14
+
+    println("Array Length: ${myArray.size}")//finding out how many elements are in array
+
+    //println("Ohms in Array?: ${myArray.contains("Ohms")} ") //checking if Ohms is in an array
+    println("Resistance In Sentence?: ${sentenceForCheckingIndexes.indexOf("Resistance")}")
+
+
+    var partOfMyArray = myArray.copyOfRange(0, 1)//get number of elements in an array and returning it as an array. This example is only doing the first two elements(0,1) but clearly, you can increment as you see fit
+
+    println("First: ${myArray.first()}") // gets the first element of array
+    println("Last: ${myArray.last()}") //gets last element of array
+
+    //println("Ohms Index In myArray: ${myArray.indexOf("Ohms")}")
+    println("Resistance Index In Sentence: ${sentenceForCheckingIndexes.indexOf("Resistance")}") //gets the first index for where Resistance shows up
+    println("\n\n")
+
+    var squareArray = Array(5, {x -> x * x}) //first param is the size of the array you want, the second, 1- 5 with each index value multiplying itself by itself
+
+
+    println(squareArray[1])
+    println(squareArray[2])
+    println(squareArray[3]) //the 3rd element in the array, in this case 3, squared itself and printed 9
+    println(squareArray[4])
+
+
+    //Type Specific Arrays
+    println("Type Specific Arrays")
+
+    var intArray: Array<Int> = arrayOf(1, 2, 3, 4) // makes it so that you can only store ints in secondArray. If you try to store anything else, String or whatever, you can't
+    var stringArray: Array<String> = arrayOf("Apple","Cake", "Pie", "Beef")// makes it so that you can only store Strings in secondArray. If you try to store anything else, Int or whatever, you can't
+    var doubleArray: Array<Double> = arrayOf(1.1, 2.4, 3.9, 4.16) // And so on and so forth
+
+
+
+
 }
