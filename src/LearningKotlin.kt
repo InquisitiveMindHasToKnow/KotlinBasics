@@ -1,5 +1,6 @@
 package demo
 
+import java.lang.IllegalArgumentException
 import java.util.Random
 
 fun main() {
@@ -373,11 +374,134 @@ fun main() {
     println("8 * 4 = ${mult3(4)}")
 
 
-    val mult = {num1: int -> num1 * 2}
+    val mult = {num1: Int -> num1 * 2}
+    val numList2 = arrayOf(1, 2, 3, 4, 5)
+
+    mathOnList(numList2, mult)
+
+
+    //*************Collection Operators**************
+
+    println("\n\t\t\t\t Collection Operators \n")
+
+    val exampleListOfNumbers = 1..20
+
+    //sum all the values in a list uses the reduce function in kotlin
+    val listSumWithReduce = exampleListOfNumbers.reduce {x, y -> x + y}
+    println("Reduce Sum: $listSumWithReduce")
+
+    //fold in this example starts with an initial value of 5 and will add all the other values in the list to it
+    val listSumWithFold = exampleListOfNumbers.fold(5) {x, y -> x + y}
+    println("Fold Sum: $listSumWithFold")
+
+
+    //check if any values are able to meet a condition
+    println("Checking Evens:  ${exampleListOfNumbers.any { it % 2 == 0 }}") //this example checks if ANY even numbers are in exampleListOfNumbers
+    println("Checking Evens:  ${exampleListOfNumbers.all { it % 2 == 0 }}") //this example checks if ALL numbers in exampleListOfNumbers are even
+
+
+    val numsLargerThanThree = exampleListOfNumbers.filter { it > 3 }
+    numsLargerThanThree.forEach { n -> println("Numbers > 3 in exampleListOfNumbers are: $n") }
+
+
+    //map operator allows you to perform an action on every single item and return a new list
+
+    val timesEight = exampleListOfNumbers.map { it * 8 }//multiplies every element in exampleListOfNumbers by 8
+    timesEight.forEach { n -> println("Values in exampleListOfNumbers * 8 = $n") }
+
+
+    //*************Exception Handling**************
+
+    println("\n\t\t\t\t Exception Handling \n")
+
+    val divisor = 2
+
+    try{
+        if(divisor == 0){
+
+            throw IllegalArgumentException("Can't divide by zero")
+        }else {
+            println(" 10 / $divisor = ${10/divisor}")
+        }
+    }catch (e: IllegalArgumentException){
+        println(e.message)
+    }
+
+
+    //*************Collections**************
+
+    println("\n\t\t\t\t Collections \n")
+    println("\t\t\t\t Lists \n")
+
+    //There are mutable and immutable lists in kotlin
+
+    var mutableListExample: MutableList<Int> = mutableListOf(1, 2, 3, 4, 5, 6)
+
+    val immutableListExample: List<Int> = listOf(10, 20, 30, 40, 50)
+
+    mutableListExample.add(6) //adds 6 to mutableListExample
+    println("First item in mutableListExample:  ${mutableListExample.first()}")
+    println("Last item in mutableListExample:  ${mutableListExample.last()}")
+
+    println("2nd Index of mutableListExample:  ${mutableListExample[2]}")
+
+    //creates a new list from index 0 - 3 of mutableExampleList using subList keyword
+    var anotherMutableListExample = mutableListExample.subList(0, 3)
+    println("Length of mutableListExample =   ${mutableListExample.size}")
+
+
+    anotherMutableListExample.clear() //removes all items from anotherMutableListExample
+
+    mutableListExample.remove(2) // removes the 2nd element in mutableListExample
+
+    mutableListExample.removeAt(1) // removes the item at index 1 in mutableListExample
+
+    mutableListExample[2] = 10 //adds 10 to mutableListExample at the 2nd index
+
+    mutableListExample.forEach {n -> println("Mutable List Example Items: $n")}//cycles through and prints all items in mutableListExample
+
+
+    println("\t\t\t\t Maps \n")
+    //modifiable collection that holds key value pairs
+    //can be mutable or immutable in kotlin
+
+    val mutableMapExample = mutableMapOf<Int, Any?>()//in this example the key will be an Int, the value can be anything
+
+    //map that loads values when you first start it
+    //1 to Ohms is the key in this example, 2 to 25 being the value
+    //note the absence of the < > which is allowing kotlin to figure out what they are
+    val map = mutableMapOf(1 to "Ohms", 2 to 25)
+
+    //adding values to a map
+    //Dexter is the key in this example, 50 is the value
+    map[1] = "Dexter"
+    map[2] = 50
+
+    println("Map Size: ${map.size}")
+
+    //adding a key value pair
+    map.put(3, "Brooklyn")
+
+    //removing a key and value
+    map.remove(2)// removes the item at 2nd key in this example
+
+    //iterating to get key value pairs
+
+    for((x, y) in map ){
+
+        println("Key: $x Value: $y")
+    }
+
+
+    println("\t\t\t\t Classes \n")
 
 
 
 }
+
+
+
+
 
 //receives a number and returns the next two in line
 fun nextTwo(num: Int) : Pair<Int, Int>{
