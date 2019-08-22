@@ -355,6 +355,28 @@ fun main() {
     println("3! = ${fact(3)}")
 
 
+    //*************Higher Order Functions**************
+
+    println("\n\t\t\t\t Higher Order Functions : A fuction that accepts or returns another function \n")
+
+
+    val numList = 1..20
+
+    val evenList = numList.filter { it % 2 == 0} //if a function only has 1 parameter, you don't have to declare it. you can just use it
+
+    evenList.forEach { n -> println(n) }// prints all the even values
+
+
+    //calls a function that will dynamically return a created function
+
+    val mult3 = makeMathFunction(8)
+    println("8 * 4 = ${mult3(4)}")
+
+
+    val mult = {num1: int -> num1 * 2}
+
+
+
 }
 
 //receives a number and returns the next two in line
@@ -364,7 +386,6 @@ fun nextTwo(num: Int) : Pair<Int, Int>{
 
 
 //send a variable number of parameters
-//
 fun getSum(vararg nums: Int) : Int{
     var sum = 0
 
@@ -385,3 +406,18 @@ fun fact(x: Int): Int {
     return factTail(x, 1)
 }
 
+//function that will dynamically return a created function
+//multiplies values times values passed in
+//essentially function that will multiply values by num1
+
+fun makeMathFunction(num1: Int): (Int) -> Int = {num2 -> num1 * num2}
+
+
+//receives a list and a function to use on the list
+fun mathOnList(numList: Array<Int>, myFunction: (num: Int) -> Int){
+
+    for(num in numList){
+        println("MathOnList ${myFunction(num)}")
+    }
+
+}
