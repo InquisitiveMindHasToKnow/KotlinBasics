@@ -495,8 +495,66 @@ fun main() {
 
     println("\t\t\t\t Classes \n")
 
+    //there are no static methods like in java
+    //classes marked final by default unless they are marked as open
+
+    //AGAIN! Notice the lack of the new keyword
+    //we don't say cheetah = new Animal() like in java but cheetah = Animal() with the attributes of a cheetah in ()
+
+    val cheetah = Animal("Cheetah", 4.5, 200.8)
+
+    cheetah.getAnimalInfo()
 
 
+    //*************Inheritance**************
+
+    println("\n\t\t\t\t Inheritance \n")
+
+    val zooHippo = Hippo("Mandy", 15.9, 550.0, "The Bronx Zoo")
+    zooHippo.getAnimalInfo()
+
+
+    //*************Interfaces**************
+
+    println("\n\t\t\t\t Interfaces \n")
+
+    val dove = Bird( "A Dove", true)
+    dove.fly(215.0)
+
+
+    //*************Null Safety**************
+
+    println("\n\t\t\t\t Null Safety \n")
+
+    //null safety is built directly into Kotlin because null causes a lot of issues
+    //by default, you cannot assign something as null
+
+    // var nullValue: String = null //this will cause an error
+    var nullValue: String? = null //the ? allows for you to make a variable null if you want
+
+
+    //in the event that a funcntion can return a null
+    fun myFunctionThatReturnsNull(): String? {
+
+        return null
+    }
+
+    //kotlin allows for null return if an if statement protects it from problems
+
+    var nullValueCheck = myFunctionThatReturnsNull()
+
+    if (nullValueCheck != null ){
+        println("${nullValueCheck.length} ")
+    }
+
+    //the force operator !! allows you to force a null if you want
+    var nullValueCheckTwo = nullValueCheck!!.length
+
+
+    //The Elvis operator ?: can be used to assign a default value of null if null is possible
+    //in the example below, if you try to assign a value of null, print out the value "No Name"
+
+    var nullValueCheckThree: String = myFunctionThatReturnsNull() ?: "No Name"
 }
 
 
@@ -544,4 +602,83 @@ fun mathOnList(numList: Array<Int>, myFunction: (num: Int) -> Int){
         println("MathOnList ${myFunction(num)}")
     }
 
+}
+
+//there are no static methods like in java
+//classes marked final by default unless they are marked as open
+//if you want to provide the option to override your method, use the open keyword
+
+//notice val for name (unchanging) and var for height and weight which are things that can change
+//attributes and data type directly in class initiation
+
+//defining you class attributes:
+open class Animal (val name: String,
+                   var height: Double,
+                   var weight: Double) {
+
+    //objects initialized in a init function where you basically verify if a value is ok or not
+
+    init {
+
+        //a regex matches for a number any place in a string.
+        //if you want to make it invalid to have a number inside an animals name in this example:
+
+        //defining if values for attributes are valid or not
+        val regEx = Regex(".*\\d+.*")
+
+        //if the animal name has a decimal in it at all, throw an exception which prints thee line "Animal name can't contain numbers"
+        require(!name.matches(regEx)) {
+            "Animal name can't contain numbers"
+        }
+
+        //height must be > 0, if not, throw an exception that prints "Height must be greater than 0"
+        require(height > 0) {
+            "Height must be greater than 0"
+        }
+
+        require(weight > 0) {
+
+            "Weight must be greater than 0"
+        }
+    }
+
+    //defining a method for your class
+    open fun getAnimalInfo(): Unit {
+        println("A $name is $height ft tall and weights $weight lbs")
+    }
+}
+
+//This class inherits info from the Animal class above
+    class Hippo(name: String,
+                height: Double,
+                weight: Double,
+                var owner: String) : Animal(name, height, weight){ // <<<< this line, specifically ( : Animal(name, height, weight),  is making it known that hippo will inherit the name, height annd weight from the Animal class
+
+    //override getAnimalInfo
+    override fun getAnimalInfo(): Unit{
+
+        println("$name is $height ft tall and weights $weight lbs and is owned by $owner")
+    }
+
+}
+
+//this interface provides for the option to make something flyable or not
+//a contract that states that all fields and methods a class must implement if it implements an innterface
+
+interface  Flyable{
+    var flies: Boolean
+
+    fun fly(distanceFlown: Double): Unit
+}
+
+//constructor params called directly in class
+//to implement an interface, follow the constructor params with a : then the interface name
+class Bird constructor(val name: String, override var flies: Boolean = true) : Flyable{
+
+
+    override fun fly(distanceFlown: Double): Unit {
+        if(flies){
+            println("$name flies $distanceFlown miles")
+        }
+    }
 }
