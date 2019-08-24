@@ -548,7 +548,7 @@ fun main() {
     }
 
     //the force operator !! allows you to force a null if you want
-    var nullValueCheckTwo = nullValueCheck!!.length
+    //var nullValueCheckTwo = nullValueCheck!!.length
 
 
     //The Elvis operator ?: can be used to assign a default value of null if null is possible
