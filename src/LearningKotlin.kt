@@ -525,6 +525,7 @@ fun main() {
     //*************Null Safety**************
 
     println("\n\t\t\t\t Null Safety \n")
+    println("Go to lines 528 to 559 for details on Null Safety. More to be added in the future")
 
     //null safety is built directly into Kotlin because null causes a lot of issues
     //by default, you cannot assign something as null
